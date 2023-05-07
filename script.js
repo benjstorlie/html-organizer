@@ -25,7 +25,7 @@ function div(listItem,divEl,colorIndex=0,inset=false) {
   }
 
   subListItems.each(function()  {
-    const color = randColors[colorIndex];
+    const color = randColor(colorIndex);
     const itemEl = $(this);
     let colorIncrement = itemEl.find('li').length;
     const subdiv = $("<div>").addClass(itemEl.data('child-class')).attr("style",itemEl.data('child-style'));
@@ -36,7 +36,7 @@ function div(listItem,divEl,colorIndex=0,inset=false) {
       .append($("<span>").css('color',color).html(itemEl.children("b").html()))
       .append(subdiv);
     divEl.append(newSection);
-    
+
     div(itemEl,subdiv,colorIndex+1,inset);
 
     if (itemEl.hasClass('inset-start') && !inset) {
@@ -50,12 +50,14 @@ function div(listItem,divEl,colorIndex=0,inset=false) {
 
       div(itemEl,subdiv2,colorIndex+1,true);
     }
-    colorIndex += colorIncrement;
+    colorIndex += colorIncrement+1;
   });
   
 }
 
 function randColor(colorIndex) {
+
+  colorIndex = colorIndex % randColors.length;
 
   return randColors[colorIndex];
 }
