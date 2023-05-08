@@ -4,13 +4,76 @@ let randColors;
 
 window.onload = function() {
 
-  randColors = newRandColorsList($('li').length);
+  //randColors = newRandColorsList($('li').length);
 
-  div($("#editor"),$("#editor-diagram"));
-  //div($("#inset-card"),$("#inset-card-diagram"),true);
+  //div($("#editor"),$("#editor-diagram"));
   
+  let data = JSON.stringify({data: parseNestedList($('#big-list'))},null,2);
+
+
+  $('#pre').text(data);
+  copyToClipboard('pre');
+
 }
 
+function parseNestedList($list,idPrefix='') {
+  let data = [];
+  let idCounter = 0;
+
+  $list.children('li').each(function() {
+    const $item = $(this);
+    let itemData = {};
+
+    itemId = idPrefix + idCounter;
+    itemData.id = itemId;
+    idCounter++;
+
+    // Get text content
+    const [main,content] = parseListItem($item);
+    itemData.main = main;
+    if (content) {itemData.content = content;}
+
+    // Get class name
+    itemData.parentClass = $item.data('parent-class');
+
+    // Get style properties
+    itemData.parentStyle = $item.data('parent-style');
+
+    // Get class name
+    itemData.childClass = $item.data('child-class');
+
+    // Get style properties
+    itemData.childStyle = $item.data('child-style');
+
+    itemData.childStyle = $item.data('child-style');
+
+    itemData.text = $item.data('html');
+
+    itemData.idAttr = $item.attr('id');
+
+    itemData.class = $item.attr('class');
+
+    // Check for nested list
+    var $nestedList = $item.children('ul');
+    if ($nestedList.length) {
+      itemData.children = parseNestedList($nestedList,itemId);
+    }
+
+    // Add item data to array
+    data.push(itemData);
+  });
+
+  return data;
+}
+
+function parseListItem($item) {
+  const $parsedHtml = $("<div>").html($item.html());
+  const main = $parsedHtml.find('b').html();
+  const $remainingHtml = $parsedHtml.clone().find('b').remove().end();
+  $remainingHtml.find('ul').remove();
+  const content = $remainingHtml.html().trim();
+  return [main,content];
+}
 
 function div(listItem,divEl,colorIndex=0,inset=false) {
   // For the list item, for each sub-item create a new div with a border in divEl
