@@ -11,27 +11,66 @@ window.onload = function() {
   let data = JSON.stringify({data: parseNestedList($('#big-list'))},null,2);
 
 
-  $('#pre').text(data);
-  copyToClipboard('pre');
+  document.getElementById('pre').value=data;
 
 }
 
-function parseNestedList($list,idPrefix='') {
+
+function buildNestedList(data) {
+  var list = document.createElement('ul');
+
+  for (var i = 0; i < data.length; i++) {
+    var item = data[i];
+    var listItem = document.createElement('li');
+
+    if (typeof item === 'object') {
+      listItem.textContent = item.text;
+
+      if (item.class) {
+        listItem.classList.add(item.class);
+      }
+
+      if (item.style) {
+        Object.assign(listItem.style, item.style);
+      }
+
+      if (item.children && Array.isArray(item.children)) {
+        var nestedList = buildNestedList(item.children);
+        listItem.appendChild(nestedList);
+      }
+    } else {
+      listItem.textContent = item;
+    }
+
+    list.appendChild(listItem);
+  }
+
+  return list;
+}
+
+function buildListItem() {
+  return true;
+}
+
+
+function parseNestedList($list) {
   let data = [];
-  let idCounter = 0;
+  //let idCounter = 0;
 
   $list.children('li').each(function() {
     const $item = $(this);
     let itemData = {};
 
-    itemId = idPrefix + idCounter;
+    /* itemId = idPrefix + idCounter;
     itemData.id = itemId;
-    idCounter++;
+    idCounter++; */
 
     // Get text content
     const [main,content] = parseListItem($item);
     itemData.main = main;
     if (content) {itemData.content = content;}
+
+    itemData.color = Math.floor(360*Math.random());
 
     // Get class name
     itemData.parentClass = $item.data('parent-class');
@@ -56,7 +95,7 @@ function parseNestedList($list,idPrefix='') {
     // Check for nested list
     var $nestedList = $item.children('ul');
     if ($nestedList.length) {
-      itemData.children = parseNestedList($nestedList,itemId);
+      itemData.children = parseNestedList($nestedList);
     }
 
     // Add item data to array
