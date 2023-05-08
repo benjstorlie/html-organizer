@@ -1,50 +1,112 @@
+let sampledata = [
+  {    
+    content: "Item 1",
+    inset: "inset1",    
+    items: [
+      {        
+        content: "Subitem 1.1"      
+      },      
+      {        
+        content: "Subitem 1.2"      
+      }    
+    ]
+  },
+  {
+    content: "Item 2",
+    items: [
+      {
+        content: "Subitem 2.1"
+      },
+      {
+        content: "Subitem 2.2",
+        inset: "inset2",
+        items: [
+          {
+            content: "Subsubitem 2.2.1"
+          },
+          {
+            content: "Subsubitem 2.2.2"
+          }
+        ]
+      }
+    ]
+  }
+];
+
+
 
 window.onload = function() {
-
-  //div($("#editor"),$("#editor-diagram"));
 }
 
-function buildNestedList(data) {
 
-  const {main,content,items,inset,idAttr,color,childStyle,parentStyle,childClass,parentClass}=data;
 
-  let $ul = $("<ul>");
+
+
+/* 
+function buildNested(data) {
+  // 'data' is an array of objects.
+  // the function will create a <ul> and a <div class='ul'>
+  // for each object in the array, it will append an <li> to $ul and append a <div> to $divul
+  // then it will return the new elements [$ul, $divul]
+
+  let $ul = $('<ul>');
+  let $divul = $('<div>', {class: 'ul'});
 
   data.forEach(item => {
-    let $li = $("<li>", { text: item.text });
     
-    if (item.boldContent) {
-      let $bold = $("<b>", { html: item.boldContent });
-      $li.prepend($bold);
+    const {main,content,text,children,inset,hue,liStyle,ulStyle,liClass,ulClass}=item;
+
+    let [$li,$divli] = buildListItem(main,content,hue,text,liClass,liStyle);
+
+    if (inset) {
+      let $diagram = $(`#${inset}-diagram`);
+        // An already existing element on the page
+      if ($diagram) {
+        let $divulInset = $('<div>', {class: 'ul'});
+
+
+      }
+    }
+
+    if (children) {
+      let [$subul,$subdivul] = buildNested(children);
+
+      $subdivul.addclass(ulClass);
+      $subdivul.attr('style', ulStyle);
+
+      $li.append($subul);
+      $divli.append($subdivul);
     }
     
-    if (item.remainingHtml) {
-      let $remaining = $("<span>", { html: item.remainingHtml });
-      $li.append($remaining);
-    }
-    
-    if (item.id) {
-      $li.attr("id", item.id);
-    }
-    
-    if (item.items) {
-      $li.append(buildNestedList(item.items));
-    }
-    
-    $ul.append($li);
+    return [$ul.append($li),$divul.append($divli)];
+  });
+}
+
+function buildListItem(main,content,hue,text,liClass,liStyle) {
+
+  let $li = $('<li>', {html:`<b>${main}</b>${content}`});
+  let $divli = $('<div>',{
+    class:`li ${liClass}`,
+    style: liStyle,
+    text: main
   });
 
-  return $ul;
+  $li.css('color',hsl(hue));
+  $divli.css('color',hsl(hue));
+
+  $divli.append(
+    $('<span>',{
+      style: 'color:#e1e1e1',
+      html: text 
+    })
+  );
+
+  return [$li,$divli];
 }
 
-
-function buildListItem() {
-  return true;
+function buildSubList(ulClass,ulStyle) {
 }
-
-function buildDivItem() {
-  return true;
-}
+ */
 
 
 function div(listItem,divEl,colorIndex=0,inset=false) {
@@ -88,4 +150,8 @@ function div(listItem,divEl,colorIndex=0,inset=false) {
     colorIndex += colorIncrement+1;
   });
   
+}
+
+function hsl(hue) {
+  return 'hsl('+hue+',50%,60%)'
 }
