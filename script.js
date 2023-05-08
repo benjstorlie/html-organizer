@@ -1,118 +1,51 @@
 
-let randColors;
-
-
 window.onload = function() {
 
-  //randColors = newRandColorsList($('li').length);
-
   //div($("#editor"),$("#editor-diagram"));
-  
-  let data = JSON.stringify({data: parseNestedList($('#big-list'))},null,2);
-
-
-  document.getElementById('pre').value=data;
-
 }
-
 
 function buildNestedList(data) {
-  var list = document.createElement('ul');
 
-  for (var i = 0; i < data.length; i++) {
-    var item = data[i];
-    var listItem = document.createElement('li');
+  const {main,content,items,inset,idAttr,color,childStyle,parentStyle,childClass,parentClass}=data;
 
-    if (typeof item === 'object') {
-      listItem.textContent = item.text;
+  let $ul = $("<ul>");
 
-      if (item.class) {
-        listItem.classList.add(item.class);
-      }
-
-      if (item.style) {
-        Object.assign(listItem.style, item.style);
-      }
-
-      if (item.children && Array.isArray(item.children)) {
-        var nestedList = buildNestedList(item.children);
-        listItem.appendChild(nestedList);
-      }
-    } else {
-      listItem.textContent = item;
+  data.forEach(item => {
+    let $li = $("<li>", { text: item.text });
+    
+    if (item.boldContent) {
+      let $bold = $("<b>", { html: item.boldContent });
+      $li.prepend($bold);
     }
+    
+    if (item.remainingHtml) {
+      let $remaining = $("<span>", { html: item.remainingHtml });
+      $li.append($remaining);
+    }
+    
+    if (item.id) {
+      $li.attr("id", item.id);
+    }
+    
+    if (item.items) {
+      $li.append(buildNestedList(item.items));
+    }
+    
+    $ul.append($li);
+  });
 
-    list.appendChild(listItem);
-  }
-
-  return list;
+  return $ul;
 }
+
 
 function buildListItem() {
   return true;
 }
 
-
-function parseNestedList($list) {
-  let data = [];
-  //let idCounter = 0;
-
-  $list.children('li').each(function() {
-    const $item = $(this);
-    let itemData = {};
-
-    /* itemId = idPrefix + idCounter;
-    itemData.id = itemId;
-    idCounter++; */
-
-    // Get text content
-    const [main,content] = parseListItem($item);
-    itemData.main = main;
-    if (content) {itemData.content = content;}
-
-    itemData.color = Math.floor(360*Math.random());
-
-    // Get class name
-    itemData.parentClass = $item.data('parent-class');
-
-    // Get style properties
-    itemData.parentStyle = $item.data('parent-style');
-
-    // Get class name
-    itemData.childClass = $item.data('child-class');
-
-    // Get style properties
-    itemData.childStyle = $item.data('child-style');
-
-    itemData.childStyle = $item.data('child-style');
-
-    itemData.text = $item.data('html');
-
-    itemData.idAttr = $item.attr('id');
-
-    itemData.class = $item.attr('class');
-
-    // Check for nested list
-    var $nestedList = $item.children('ul');
-    if ($nestedList.length) {
-      itemData.children = parseNestedList($nestedList);
-    }
-
-    // Add item data to array
-    data.push(itemData);
-  });
-
-  return data;
+function buildDivItem() {
+  return true;
 }
 
-function parseListItem($item) {
-  const $parsedHtml = $("<div>").html($item.html());
-  const main = $parsedHtml.find('b').html();
-  const $remainingHtml = $parsedHtml.clone().find('b').remove().end();
-  $remainingHtml.find('ul').remove();
-  const content = $remainingHtml.html().trim();
-  return [main,content];
-}
 
 function div(listItem,divEl,colorIndex=0,inset=false) {
   // For the list item, for each sub-item create a new div with a border in divEl
@@ -155,56 +88,4 @@ function div(listItem,divEl,colorIndex=0,inset=false) {
     colorIndex += colorIncrement+1;
   });
   
-}
-
-function randColor(colorIndex) {
-
-  colorIndex = colorIndex % randColors.length;
-
-  return randColors[colorIndex];
-}
-
-function newRandColorsList(n) {
-
-  let seed = Math.floor(360 * Math.random());
-
-  let int = [...Array(n).keys()]; // integers 0 to n-1
-  
-
-  for (let i = n - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = int[i];
-    int[i] = int[j];
-    int[j] = temp;
-  }
-
-  return int.map((e) => {return 'hsl('+ (seed+e*360/n)%360 +',50%,60%)'});;
-
-}
-
-function randColor2() {
-  // Outputs a string rgb()
-
-  let r = Math.floor(256 * Math.random());
-  let g = Math.floor(256 * Math.random());
-  let b = Math.floor(256 * Math.random());
-
-  return 'rgb('+r+','+g+','+b+')'
-}
-
-function randColor3() {
-  // Outputs a string hsl()
-
-  let h=Math.floor(360 * Math.random());
-  return 'hsl('+h+',50%,60%)';
-
-}
-
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    const temp = array[i];
-    array[i] = array[j];
-    array[j] = temp;
-  }
 }

@@ -20,11 +20,7 @@
     <li><u>something</u></li>
   </ul>
 
-
-    <textarea id="pre" style="white-space: pre-wrap;" rows="20" cols="100"></textarea>
-
-
-  <main class="d-flex flex-wrap">
+  <section id="big-div" class="d-flex flex-wrap">
     <div class="w-100 m-0">
       <section id="editor-diagram" class="boxes"></section>
     </div>
@@ -37,173 +33,9 @@
     <div>
       <section id="inset-card-heading-diagram" class="boxes inset"> </section>
     </div>
-  </main>
+  </section>
 
-  <section id="editor" class="list">
-    <ul id="big-list"><li>
-      <b>body</b>
-      <ul><li data-child-class="d-flex flex-wrap align-items-center">
-        <b>#window-container</b>.container.vw-100.vh-100
-        <ul><li data-child-class="w-100 d-flex flex-wrap">
-          <b>.row</b>
-          <ul><li data-parent-class="w-100">
-            <b>#page-title-area.col-12</b>
-            <ul><li>
-              <b>form#page-title-form[onsubmit='setPageTitle()']</b>
-              <ul><li>
-                <b>input[type='text']#page-title-input</b>.form-control
-              </li></ul>
-            </li></ul>
-            <li data-parent-style="flex: 1 0 0">
-              <b>#nav-area.col-2</b>
-              <ul><li  data-child-style="border-radius:.3em">
-                <b>#nav.button-group-vertical</b>
-                <ul><li data-html="&#x1F519;" data-child-class="icon">
-                  <b>button[onclick="gotoHomePage()"]</b>#home-button.btn.btn-lg.btn-primary
-                </li><li data-html="&#x1F4BE;" data-child-class="icon">
-                  <b>button[onclick="saveAll()"]</b>#save-button.btn.btn-lg.btn-success
-                </li><li data-html="&#x1F5D1;" data-child-class="icon">
-                  <b>button[onclick="deletePage()"]</b>#delete-page-button.btn.btn-lg.btn-danger
-                </li><li data-html="&#x25B6;" data-child-class="icon">
-                  <b>button[onclick="deploy()"]</b>#deploy-button.btn.btn-lg.btn-info
-                </li><li data-html="&#x2795;" data-child-class="icon">
-                  <b>button[onclick="newCard()"]</b>#new-card-button.btn.btn-lg.btn-warning
-                </li></ul>
-              </li></ul>
-            <li data-parent-style="flex:5 0 0">
-              <b>#editor-area.col-10</b>
-              <ul><li data-child-class="d-flex flex-wrap align-items-center">
-                <b>#editor.row</b>
-                <ul><li data-parent-class="w-100">
-                  <b>#card-area-heading.col-12</b>.d-flex.small<br/>#card-area-heading {height:20%} #card-area-heading.small {height:fit-content}
-                  <ul><li data-html="Click to add heading or question!">
-                    <b>button#show-heading-btn[onclick="showHeading()"]</b>.btn.btn-warning {width:100%}
-                  </li>
-                  <li id="inset-card-heading"class="inset-start inset-end" data-child-class="d-flex">
-                    <b>#card-heading.card</b>{display-flex; flex-direction:row; width:100%; position:relative}
-                    <ul><li data-parent-class="w-50">
-                      <b>#card-header-heading<s>.card-left-sider</s></b>{display: flex; flex-direction: column; justify-content-center; flex-grow:3}
-                      <ul><li>
-                        <b>form#form-heading [onsubmit="setCardTitle()]</b>
-                        <ul><li data-child-class="d-flex">
-                          <b>.input-group</b>
-                          <ul><li>
-                            <b>.input-group-prepend</b>
-                              <ul><li><b>button#btn-speech-heading[onclick="speak"]</b><s>.btn-speech</s>.btn
-                            </li></ul>
-                          </li>
-                        <li>
-                          <b>input[type='text']#input-heading</b>.form-control
-                        </li></ul>
-                        </li></ul>
-                      </li><li>
-                        <b>button#delete-card-heading</b>.close {position:absolute; top:1rem; left:1rem}
-                      </li></ul>
-                    </li><li data-parent-class="w-50">
-                      <b>.card-body</b>{flex-grow:1}
-                      <ul><li>
-                        <b>#img-heading<s>.img-div</s>[data-target='#modal-heading'] {background-image:url(&#x2026; ${src} &#x2026;)}</b>[data-toggle='modal'] {position:relative}
-                        <ul><li>
-                          <b>button#delete-img-heading[onclick="deleteImg()"]</b>.close {position:absolute; top:1rem; right:1rem}
-                        </li></ul>
-                      </li></ul>
-                    </li></ul>
-                  </li></ul>
-                  <li data-parent-class="flex-grow-1">
-                  <b>#card-area-<i>stamp</i>.col</b>
-                  <ul><li  id="inset-card" class="inset-start inset-end" data-child-style="border-radius:.3em" data-html="see inset">
-                    <b>#card-<i>stamp</i>.card</b>
-                    <ul><li>
-                      <b>#card-header-<i>stamp</i>.card-header</b>
-                      <ul><li>
-                        <b>form#form-<i>stamp</i></b>
-                        <ul><li data-child-class="d-flex">
-                          <b>.input-group</b>
-                          <ul><li>
-                            <b>.input-group-prepend</b>
-                            <ul><li>
-                              <b>button<s>.btn-speech</s></b>
-                            </li></ul>
-                          </li>
-                        <li>
-                          <b>input[type='text']#input-<i>stamp</i></b>.form-control
-                        </li></ul>
-                        </li></ul>
-                      </li>
-                    <li data-html="&lt;span style='font-size:x-small'&gt;span[aria-hidden='true'] &amp;amp;times;&lt;/span&gt;
-                      ">
-                      <b>button#delete-card-<i>stamp</i>.close</b>
-                    </li></ul>
-                    </li>
-                  <li>
-                    <b>.card-body</b>
-                    <ul><li>
-                      <b>button[data-toggle="modal" data-target="#modal-<i>stamp</i>"]
-                        #img-<i>stamp</i><s>.img-div</s>.btn {background-image:url(&#x2026; ${src} &#x2026;)}</b>
-                      <li data-html="&lt;span style='font-size:x-small'&gt;span[aria-hidden='true'] &amp;amp;times;&lt;/span&gt;">
-                        <b>button#delete-img-stamp.close</b>
-                      </li>
-                    </li></ul>
-                  </li></ul>
-                  </li></ul>
-                </li>
-                  <li data-parent-class="flex-grow-1">
-                    <b>#card-area-<i>stamp</i>.col</b>
-                  <ul><li class="inset-end" data-child-style="border-radius:.3em">
-                    <b>#card-<i>stamp</i>.card</b>
-                  </li></ul>
-                </li><li data-child-class="d-none" data-parent-class="my-0 py-0 fs-3">
-                  <b>&#8945;</b>
-                </li>
-                </li></ul>
-              </li></ul>
-            </li>
-          </li></ul>
-        </li>
-        <li id="inset-modal" class="inset-start inset-end" data-html="See inset" data-parent-class="flex-grow-1">
-          <b>#modal-<i>stamp</i>.modal</b>.fade
-          <ul><li>
-            <b>.modal-dialog</b>
-            <ul><li>
-              <b>.modal-content</b>
-              <ul><li data-child-class="d-flex flex-wrap">
-                <b>.modal-header</b>
-                <ul>
-                <li data-parent-style="width: 70%">
-                  <b>form#search-form-<i>stamp</i>[onsubmit="showSearchResults()"]</b>
-                  <ul><li>
-                    <b>.input-group</b>
-                    <ul><li>
-                      <b>.input-label</b>
-                    <li>
-                      <b>input[type='text']#search-input-<i>stamp</i></b>.form-control</b>
-                    </li>
-                    </li>
-                  </li></ul>
-              </li></ul>
-                <li data-parent-style="width:30%" data-html="&lt;span style='font-size:x-small'&gt;span[aria-hidden='true'] &amp;amp;times;&lt;/span&gt;">
-                  <b>button.close</b>[data-dismiss='modal']
-                </li></ul>
-              </li>
-              <li data-html="search results go here">
-                <b>.modal-body</b>
-              </li>
-              <li data-child-class="d-flex">
-                <b>.modal-footer</b>
-                <ul><li data-parent-class="flex-grow-1" data-html="Save">
-                  <b>button#save-img-<i>stamp</i></b>.btn
-                </li>
-                <li data-parent-class="flex-grow-1" data-html="Close">
-                  <b>button[data-dismiss='modal']</b>
-                </li></ul>
-              </li></ul>
-            </li></ul>
-          </li></ul><li data-child-class="d-none" data-parent-class="flex-grow-1 my-0 py-0 fs-2" data-parent-style="text-align:center">
-            <b>⋯</b>
-          </li></ul>
-        </li>
-      </li></ul>
-    </li></ul>
+  <section id="big-list">
   </section>
 
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -214,6 +46,7 @@
   </script>
 
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="./data.js"></script>
   <script src="./script.js"></script>
 
 </body>

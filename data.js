@@ -110,7 +110,7 @@ let data = {
                               "color": 117,
                               "childClass": "d-flex",
                               "idAttr": "inset-card-heading",
-                              "class": "inset-start inset-end",
+                              "inset": true,
                               "children": [
                                 {
                                   "main": "#card-header-heading<s>.card-left-sider</s>",
@@ -189,7 +189,7 @@ let data = {
                               "childStyle": "border-radius:.3em",
                               "text": "see inset",
                               "idAttr": "inset-card",
-                              "class": "inset-start inset-end",
+                              "inset": true,
                               "children": [
                                 {
                                   "main": "#card-header-<i>stamp</i>.card-header",
@@ -257,8 +257,7 @@ let data = {
                             {
                               "main": "#card-<i>stamp</i>.card",
                               "color": 24,
-                              "childStyle": "border-radius:.3em",
-                              "class": "inset-end"
+                              "childStyle": "border-radius:.3em"
                             }
                           ]
                         },
@@ -281,7 +280,7 @@ let data = {
               "parentClass": "flex-grow-1",
               "text": "See inset",
               "idAttr": "inset-modal",
-              "class": "inset-start inset-end",
+              "inset": true,
               "children": [
                 {
                   "main": ".modal-dialog",
