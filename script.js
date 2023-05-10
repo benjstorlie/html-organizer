@@ -3,7 +3,7 @@
 let htmlData;
 fetch('./data.json')
     .then((response) => response.json())
-    .then((json) => htmlData = json;);
+    .then((json) => htmlData = JSON.parse(json););
 
 /**
  * user-created data
