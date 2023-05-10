@@ -1,4 +1,4 @@
-import htmlData from '.data.json' assert { type: 'json'};
+import htmlData from './data.json' assert { type: 'json'};
 
 /**
  * user-created data
