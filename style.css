@@ -7,6 +7,14 @@ body {
   padding: 2rem;
 }
 
+.dliText, .liText {
+  cursor: pointer;
+}
+
+.highlight {
+  background-color: yellow;
+}
+
 i {
   font-weight: 400;
 }
@@ -26,6 +34,7 @@ ul {
 
 .boxes {
   font-size: small;
+  overflow-wrap: anywhere;
 }
 
 section.boxes.inset {
@@ -40,9 +49,14 @@ section.boxes.inset {
   padding: 0 0 0.5rem 1rem;
 }
 
+.boxes div.li:hover,
+li:hover {
+  background-color: yellow;
+}
+
 .boxes div.ul {
   /* display: flex;
-  flex-wrap: wrap; */
+  flex-wrap: wrap;  */
   border-style: solid;
   border-width: 2px;
   border-color: inherit;

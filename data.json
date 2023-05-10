@@ -1,39 +1,4 @@
-let sampledata = [
-  {    
-    content: "Item 1",
-    inset: "inset1",    
-    items: [
-      {        
-        content: "Subitem 1.1"      
-      },      
-      {        
-        content: "Subitem 1.2"      
-      }    
-    ]
-  },
-  {
-    content: "Item 2",
-    items: [
-      {
-        content: "Subitem 2.1"
-      },
-      {
-        content: "Subitem 2.2",
-        inset: "inset2",
-        items: [
-          {
-            content: "Subsubitem 2.2.1"
-          },
-          {
-            content: "Subsubitem 2.2.2"
-          }
-        ]
-      }
-    ]
-  }
-];
-
-let htmlData = {
+{
   "main": "body",
   "hue": 344,
   "children": [
