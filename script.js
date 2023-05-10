@@ -1,4 +1,9 @@
-import htmlData from './data.json' assert { type: 'json'};
+// import htmlData from './data.json' assert { type: 'json'};
+
+let htmlData;
+fetch('./data.json')
+    .then((response) => response.json())
+    .then((json) => htmlData = json;);
 
 /**
  * user-created data
