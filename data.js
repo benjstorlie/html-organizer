@@ -458,3 +458,5 @@ let htmlData = {
     }
   ]
 }
+
+export {htmlData,sampledata}

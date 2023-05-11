@@ -1,9 +1,12 @@
 // import htmlData from './data.json' assert { type: 'json'};
 
-let htmlData;
+/* let htmlData;
 fetch('./data.json')
     .then((response) => response.json())
     .then((json) => htmlData = JSON.parse(json));
+ */
+
+import { htmlData } from './data.js';
 
 /**
  * user-created data
@@ -25,13 +28,21 @@ window.onload = function() {
 function buildNestedList($listContainer,$divContainer,data) {
 
   // ulRecursive($listContainer,$divContainer,data);
-  ulRecursiveListId($listContainer,$divContainer,data);
+  ulRecursive($listContainer,$divContainer,data);
   scrollToId()
 }
 
-function ulRecursiveListId($li,$divLi,data,listId='') {
+/**
+ * Build "ul" elements and attach to parameters $li and $divLi, respectively
+ * @param {JQuery} $li <li> element to attach the new <ul> to
+ * @param {JQuery} $divLi <div class='li'> element to attach the new <div class='ul'> to
+ * @param {OrganizerData} data the user-created data
+ * @param {String} [listId=''] the suffix to attach to the id's of new elements
+ */
+function ulRecursive($li,$divLi,data,listId='') {
 
-  const {ulClass='',ulStyle='',children=[],text=''} = data;
+  const {children=[],text='',diagramFormat} = data;
+  const {ulClass='',ulStyle=''} = diagramFormat;
 
   let $ul = $('<ul>',{id: 'ul'+listId});
   let $divUl = $('<div>',{
@@ -44,7 +55,7 @@ function ulRecursiveListId($li,$divLi,data,listId='') {
 
   if (children) {
     children.forEach((item,index) => {
-      liRecursiveListId($ul,$divUl,item,(listId ? listId+index : ''));
+      liRecursive($ul,$divUl,item,(listId ? listId+index : ''));
     });
     
   } else {
@@ -57,15 +68,17 @@ function ulRecursiveListId($li,$divLi,data,listId='') {
 }
 
 /**
- * 
- * @param {JQuery} $superUl <ul> element to attach the new <li> to
- * @param {JQuery} $superDivUl <div class='ul'> element to attach the new <div class='li'> to
+ * Build 'li' elements and attach to the ul and divUl elements, respectively
+ * @param {JQuery} $ul <ul> element to attach the new <li> to
+ * @param {JQuery} $DivUl <div class='ul'> element to attach the new <div class='li'> to
  * @param {OrganizerData} data the user-created data
  * @param {String} listId the suffix to attach to the id's of new elements
  */
-function liRecursiveListId($ul,$divUl,data,listId='') {
+function liRecursive($ul,$divUl,data,listId='') {
 
-  const {main,content='',inset=false,hue,liStyle='',liClass=''}=data;
+  const {main,content='',inset=false,hue,diagramFormat}=data;
+
+  const {liStyle='',liClass=''}=diagramFormat;
 
   let html =`<span ${(listId ? `id='liText${listId}'` : '')}" class='liText'><b>${main}</b>${content}</span>`;
 
@@ -90,7 +103,7 @@ function liRecursiveListId($ul,$divUl,data,listId='') {
     $divLiInset.append($('<div>',{class: 'ul see-inset', html: "see inset"}));
 
     $divUl.append($divLiInset);
-    ulRecursiveListId($li,$divLi,data,listId);
+    ulRecursive($li,$divLi,data,listId);
 
     let insetDiagram = $(`#${inset}-diagram`);
     if (!insetDiagram) {
@@ -101,7 +114,7 @@ function liRecursiveListId($ul,$divUl,data,listId='') {
     $ul.append($li);
 
   } else {
-    ulRecursiveListId($li,$divLi,data,listId);
+    ulRecursive($li,$divLi,data,listId);
     $divUl.append($divLi);
     $ul.append($li);
   }
