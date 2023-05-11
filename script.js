@@ -1,10 +1,10 @@
 // import htmlData from './data.json' assert { type: 'json'};
 
-/* let htmlData;
-fetch('./data.json')
-    .then((response) => response.json())
-    .then((json) => htmlData = JSON.parse(json));
- */
+// /* let htmlData;
+// fetch('./data.json')
+//     .then((response) => response.json())
+//     .then((json) => htmlData = JSON.parse(json));
+//  */
 
 import { htmlData } from './data.js';
 
