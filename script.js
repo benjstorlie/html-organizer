@@ -32,7 +32,7 @@ function buildNestedList($listContainer,$divContainer,data) {
  */
 function ulRecursive($li,$divLi,data,listId='') {
 
-  const {children=[],text='',diagramFormat} = data;
+  const {children=[],text='',diagramFormat={}} = data;
   const {ulClass='',ulStyle=''} = diagramFormat;
 
   let $ul = $('<ul>',{id: 'ul'+listId});
@@ -67,11 +67,13 @@ function ulRecursive($li,$divLi,data,listId='') {
  */
 function liRecursive($ul,$divUl,data,listId='') {
 
-  const {main,content='',inset=false,hue,diagramFormat}=data;
+  const {main,content='',inset=false,hue,diagramFormat={}}=data;
 
   const {liStyle='',liClass=''}=diagramFormat;
 
-  let html =`<span ${(listId ? `id='liText${listId}'` : '')}" class='liText'><b>${main}</b>${content}</span>`;
+  
+
+  let html =`<span ${(listId ? `id='liText${listId}'` : ``)} class='liText'><b>${main}</b>${content}</span>`;
 
   let $li = $('<li>',{
     id: 'li'+listId,
@@ -83,7 +85,7 @@ function liRecursive($ul,$divUl,data,listId='') {
     //class: 'li',
     class: `li ${liClass}`,
     style: liStyle,
-    html: `<span ${(listId ? `id='liText${listId}'` : '')}" class='dliText'>${main}</span>`
+    html: `<span ${(listId ? `id='liText${listId}'` : ``)}  class='dliText'>${main}</span>`
   });
 
   $li.css('color',color(hue));
@@ -116,17 +118,21 @@ function liRecursive($ul,$divUl,data,listId='') {
 */
 function scrollToId() {
   $(".liText").click(function() {
-    var divId = $(this).attr("id").replace("li", "dli");
-    $('html, body').animate({
-      scrollTop: $("#" + divId).offset().top
-    }, 500);
+    if ($(this).attr("id")){
+      var divId = $(this).attr("id").replace("li", "dli");
+      $('html, body').animate({
+        scrollTop: $("#" + divId).offset().top
+      }, 500);
+    }
   });
 
   $(".dliText").click(function() {
-    var liId = $(this).attr("id").replace("dli", "li");
-    $('html, body').animate({
-      scrollTop: $("#" + liId).offset().top
-    }, 500);
+    if ($(this).attr("id")){
+      var liId = $(this).attr("id").replace("dli", "li");
+      $('html, body').animate({
+        scrollTop: $("#" + liId).offset().top
+      }, 500);
+  }
   });
   
 }
